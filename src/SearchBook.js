@@ -1,16 +1,35 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 import BookItem from './BookItem'
+import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
 
 
 class SearchBook extends Component {
+  static propTypes = {
+    books: PropTypes.array.isRequired,
+    // changeShelf: PropTypes.func.isRequired
+  }
+
   state = {
     results: [],
     query: ''
   }
+
+  changeShelf = (book, newShelf) => {
+      console.log('changed shelf', newShelf)
+      BooksAPI.update(book, newShelf).then(() => {
+          // Update the local copy of the book
+          book.shelf = newShelf;
+          // Filter out the book and append it to the end of the list
+          this.setState(state => ({
+            books: this.props.books.filter(b => b.id !== book.id).concat([ book ])
+              // books: books
+          }));
+      });
+    };
 
   handleQueryChange(event) {
      const query = event.target.value
@@ -37,29 +56,11 @@ class SearchBook extends Component {
   render(){
     const { results,query } = this.state
 
-    // let showSearchResult
-    // if(query){
-    //   const match = new RegExp((this.state.query), 'i')
-    //   showSearchResult = results.filter((book) => match.test(book.name) )
-    // }else {
-    //   showSearchResult = this.props.results
-    // }
-
-    //showSearchResult.sort(sortBy('name'))
-
     return(
         <div className="search-books">
           <div className="search-books-bar">
             <Link to="/" className="close-search" >Close</Link>
             <div className="search-books-input-wrapper">
-              {/*
-                NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                You can find these search terms here:
-                https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                you don't find a specific author or title. Every search is limited by search terms.
-              */}
               <input type="text" placeholder="Search by title or author"
                     value={query}
                     onChange={event => this.handleQueryChange(event)}
@@ -71,7 +72,7 @@ class SearchBook extends Component {
               { results.map(
                 (book) =>
                      <li key={book.id} >
-                       <BookItem book={book}/>
+                       <BookItem book={book} changeShelf={this.changeShelf} />
                      </li>
               )}
             </ol>

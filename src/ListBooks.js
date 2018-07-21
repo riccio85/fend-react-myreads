@@ -3,11 +3,25 @@ import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import BookItem from './BookItem.js'
+import * as BooksAPI from './BooksAPI'
 
 class ListBooks extends Component{
   static propTypes = {
-    books: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired,
+    // changeShelf: PropTypes.func.isRequired
   }
+  changeShelf = (book, newShelf) => {
+      console.log('changed shelf', newShelf)
+      BooksAPI.update(book, newShelf).then(() => {
+          // Update the local copy of the book
+          book.shelf = newShelf;
+          // Filter out the book and append it to the end of the list
+          this.setState(state => ({
+            books: this.props.books.filter(b => b.id !== book.id).concat([ book ])
+              // books: books
+          }));
+      });
+    };
 
   render(){
     const { books } = this.props
@@ -17,6 +31,9 @@ class ListBooks extends Component{
 
     return(
       <div className="list-books">
+        <div className="list-books-title">
+          <h1>MyReads</h1>
+        </div>
         <div className="list-books-content">
               {shelfTypes.map((shelf, index) =>  {
                 return (
@@ -27,7 +44,7 @@ class ListBooks extends Component{
                         { books.filter( (book) => book.shelf === shelf.type ).map(
                           (book) =>
                                <li key={book.id} >
-                                 <BookItem book={book}/>
+                                 <BookItem book={book} changeShelf={this.changeShelf} />
                                </li>
                         )}
                        </ol>

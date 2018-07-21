@@ -12,6 +12,9 @@ class BooksApp extends React.Component {
   state = {
     books: []
   }
+
+
+
   componentDidMount(){
     BooksAPI.getAll().then(
       (books)=> {
@@ -25,11 +28,11 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-              <ListBooks books={this.state.books} />
+              <ListBooks books={this.state.books}/>
            )}
         />
         <Route path="/search" render={({ history })=>(
-              <SearchBook />
+              <SearchBook books={this.state.books} />
             )}
         />
       </div>
