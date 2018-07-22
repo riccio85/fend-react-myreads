@@ -1,16 +1,16 @@
 # MyReads
-Project Purpose:
-This project is a part of Udacity Front-End Nanodegree Program.
+This project is a part of Udacity Front-End Nanodegree Program. Here you find the [starter code](https://github.com/udacity/reactnd-project-myreads-starter)
 
 This application allows to select and categorize books you have read, are currently reading, or want to read.
 
 ### How to install
 
-git clone https://github.com/riccio85/fend-react-myreads.git
-npm install
+ - `git clone https://github.com/riccio85/fend-react-myreads.git`
+Reach to the directory were you just cloned the repository:
+ - `npm install`
 Once all of the dependencies have been installed you can launch the app with
 
-npm start
+ `npm start`
 A new browser window should automatically open displaying the app in http://localhost:3000/ in your browser
 
 ### How to Use the App
