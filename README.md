@@ -18,7 +18,7 @@ Books are sorted into three categories: Currently Reading, Want to Read and Read
 
 To change a book's category or remove a book from the list, click on the green button on the book cover and select either the shelf you want to move the book  or none for just deleting it from our shelf
 
-To add new books, click on the green + button at the bottom of the page. Enter an author's name or subject. If your search is successful you will see all the books(up to 20) related to you search.
+To add new books, click on the green + button at the bottom of the page. Enter an author's name or subject. If your search is successful you will see all the books(up to 20) related to your search. By selecting on the book you are interested in, you can add it to your shelf.
 
 Note: The backend API is limited to a fixed set of search terms -- check out below for valid search options
 
