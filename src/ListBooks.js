@@ -8,20 +8,18 @@ import * as BooksAPI from './BooksAPI'
 class ListBooks extends Component{
   static propTypes = {
     books: PropTypes.array.isRequired,
-    // changeShelf: PropTypes.func.isRequired
+    updateBooks: PropTypes.func.isRequired
   }
+
   changeShelf = (book, newShelf) => {
-      console.log('changed shelf', newShelf)
       BooksAPI.update(book, newShelf).then(() => {
-          // Update the local copy of the book
           book.shelf = newShelf;
-          // Filter out the book and append it to the end of the list
           this.setState(state => ({
             books: this.props.books.filter(b => b.id !== book.id).concat([ book ])
-              // books: books
           }));
+          this.props.updateBooks(book);
       });
-    };
+  };
 
   render(){
     const { books } = this.props

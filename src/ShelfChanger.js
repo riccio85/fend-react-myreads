@@ -9,11 +9,10 @@ class ShelfChanger extends Component{
     }
 
     state = {
-       currentShelf: this.props.book.shelf
+       currentShelf: this.props.book.shelf || 'currentlyReading'
     }
 
     changeShelf = (event) => {
-      // console.log();
         this.props.changeShelf(this.props.book, event.target.value);
         this.setState({
             currentShelf: event.target.value
@@ -21,7 +20,6 @@ class ShelfChanger extends Component{
     };
 
     componentWillUnMount(){
-    // componentWillReceiveProps(){
         this.props.changeShelf(this.props.book,this.state.currentShelf)
     }
 
