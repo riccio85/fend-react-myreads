@@ -12,6 +12,7 @@ class SearchBook extends Component {
 
   state = {
     results: [],
+    noBookFound: false,
     query: ''
   }
 
@@ -40,7 +41,7 @@ class SearchBook extends Component {
 
   performSearch = (query) => {
     BooksAPI.search(query, 20).then((books) => {
-      books.length > 0 ?  this.setState({results: books}) : this.setState({ results: [] })
+      books.length > 0 ?  this.setState({results: books, noBookFound:false }) : this.setState({ results: [],noBookFound:true })
     })
   }
 
@@ -58,6 +59,11 @@ class SearchBook extends Component {
               />
             </div>
           </div>
+          { this.state.noBookFound &&
+            <h2 className="search-books-info">
+              Sorry no result found :( !!!!
+            </h2>
+          }
           <div className="search-books-results">
             <ol className="books-grid">
               { results.map(
