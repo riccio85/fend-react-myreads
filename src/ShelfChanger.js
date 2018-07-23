@@ -9,7 +9,7 @@ class ShelfChanger extends Component{
     }
 
     state = {
-       currentShelf: this.props.book.shelf || 'currentlyReading'
+       currentShelf: this.props.book.shelf || 'none'
     }
 
     changeShelf = (event) => {

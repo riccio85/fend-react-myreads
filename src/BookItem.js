@@ -7,7 +7,9 @@ class BookItem extends Component{
   static propTypes = {
       book: PropTypes.object.isRequired,
       changeShelf: PropTypes.func.isRequired
-  };
+  }
+
+
   render(){
     const { book,changeShelf } = this.props
     return(
@@ -20,7 +22,7 @@ class BookItem extends Component{
              }}></div>
           <ShelfChanger
                           book={book}
-                          changeShelf={this.props.changeShelf}/>
+                          changeShelf={this.props.changeShelf} />
         </div>
         <div className="book-title">{book.title}</div>
         <div className="book-authors">{book.authors}</div>
